@@ -4,6 +4,7 @@ import Modelo.Controlador;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -104,12 +105,12 @@ public class VentanaAdministrador extends JFrame implements ActionListener {
         if (e.getSource() == jButton1) {
             //Entrar            
             Controlador ParaValidar = new Controlador();
-            if (ParaValidar.ValidarUsuario(jLabel2.getText(), jLabel1.getText())) {
+            if (ParaValidar.ValidarUsuario( jTextPane1.getText(),  jPasswordField1.getText())) {                
                 VentanaAdministrador admin = new VentanaAdministrador();
                 admin.setVisible(true);
                 this.dispose();
             } else {
-                
+                JOptionPane.showMessageDialog(null, "Contraseña o usuario incorrecto,por favor revisa tus datos", "Acceso invalido", JOptionPane.ERROR_MESSAGE);
             }
 
         }
