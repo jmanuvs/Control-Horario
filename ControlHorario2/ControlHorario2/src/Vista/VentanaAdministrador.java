@@ -1,8 +1,12 @@
 package vista;
 
 import Modelo.Controlador;
+import java.awt.Cursor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -51,9 +55,11 @@ public class VentanaAdministrador extends JFrame implements ActionListener {
 
         jButton1.setText("ENTRAR");
         jButton1.addActionListener(this);
+        jButton1.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
         jButton2.setText("REGRESAR");
         jButton2.addActionListener(this);
+        jButton2.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -103,14 +109,19 @@ public class VentanaAdministrador extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == jButton1) {
-            //Entrar            
-            Controlador ParaValidar = new Controlador();
-            if (ParaValidar.ValidarUsuario( jTextPane1.getText(),  jPasswordField1.getText())) {                
-                VentanaAgregarEvento admin = new VentanaAgregarEvento();
-                admin.setVisible(true);
-                this.dispose();
-            } else {
-                JOptionPane.showMessageDialog(null, "Contraseña o usuario incorrecto,por favor revisa tus datos", "Acceso invalido", JOptionPane.ERROR_MESSAGE);
+            try {
+                //Entrar
+                Controlador ParaValidar = new Controlador();
+                if (ParaValidar.ValidarUsuario( jTextPane1.getText(),  jPasswordField1.getText())) {
+                    VentanaAgregarEvento admin = new VentanaAgregarEvento();
+                    admin.setVisible(true);
+                    this.dispose();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Contraseña o usuario incorrecto,por favor revisa tus datos", "Acceso invalido", JOptionPane.ERROR_MESSAGE);
+                }
+            } catch (IOException ex) {
+                Logger.getLogger(VentanaAdministrador.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(null, "Error: " + ex.getLocalizedMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             }
 
         }

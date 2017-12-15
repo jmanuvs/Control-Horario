@@ -19,22 +19,25 @@ public class Controlador {
 
     public Controlador() throws IOException {
         ControlDeArchivo = new EscribirYLeer();
+        ControlDeArchivo.VerificarArchivo();
     }
     public boolean ValidarUsuario (String nombre, String Pass){
         return nombre.equals("Admin") && Pass.equals("123");
     }
     public ListaDeEventos ObtenerLista() throws IOException, ClassNotFoundException{
+        EventList = new ListaDeEventos();
         EventList = ControlDeArchivo.leer();
+        System.out.println("Leido");
         if(EventList!=null){
             System.out.println("Corre");
         }
-        return EventList;        
+        return EventList;
     }
-    public void ActualizarLista(){
+    public void ActualizarLista() throws ClassNotFoundException{
         try {
             System.out.println(ControlDeArchivo.Escribir(EventList));
             EventList = ControlDeArchivo.leer();
-        } catch (ClassNotFoundException | IOException ex) {
+        } catch (IOException ex) {
             Logger.getLogger(Controlador.class.getName()).log(Level.SEVERE, null, ex);
             EventList =  null;
         }

@@ -8,11 +8,11 @@ public class Evento implements Serializable{
     private String _nombreEvento;
     private Date fechaEvento;
     
-    public Evento(String nom, int anio, int mes, int dia){
+    public Evento(String nom, int anio, int mes, int dia, int hora, int min){
         
         _nombreEvento=nom;
         
-        GregorianCalendar fecha = new GregorianCalendar(anio,mes+1,dia);
+        GregorianCalendar fecha = new GregorianCalendar(anio,mes+1,dia,hora, min);
         
         fechaEvento = fecha.getTime();
     }

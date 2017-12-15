@@ -2,6 +2,7 @@ package vista;
 
 import Modelo.Controlador;
 import Modelo.Evento;
+import java.awt.Cursor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -77,8 +78,10 @@ public class VentanaAgregarEvento extends JFrame implements ActionListener {
 
         jButton2.setText("Regresar");
         jButton2.addActionListener(this);
+        jButton2.setCursor(new Cursor(Cursor.HAND_CURSOR));
         jButton1.setText("ACEPTAR");
         jButton1.addActionListener(this);
+        jButton1.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
         jLabel4.setText("HORA:");
 
@@ -166,11 +169,13 @@ public class VentanaAgregarEvento extends JFrame implements ActionListener {
             int anio =jYearChooser1.getValue();
             int mes =jCalendar1.getMonthChooser().getMonth();
             int dia =jCalendar1.getDayChooser().getDay();
-            Evento event = new Evento(jTextPane1.getText(),anio, mes, dia);
+            int hora = Integer.parseInt(jSpinner1.getValue().toString());
+            int min = Integer.parseInt(jSpinner2.getValue().toString());
+            Evento event = new Evento(jTextPane1.getText(),anio, mes, dia,hora,min);
             Controlador cont;
             try {
                 cont = new Controlador();
-                cont.ObtenerLista();
+                cont.ObtenerLista();                
                 cont.AñadirEvento(event);
                 JOptionPane.showMessageDialog(null, "Se ha agregado correctamente", "Agregado", JOptionPane.PLAIN_MESSAGE);
             } catch (IOException | ClassNotFoundException ex) {
