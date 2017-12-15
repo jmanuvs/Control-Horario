@@ -106,7 +106,7 @@ public class VentanaAdministrador extends JFrame implements ActionListener {
             //Entrar            
             Controlador ParaValidar = new Controlador();
             if (ParaValidar.ValidarUsuario( jTextPane1.getText(),  jPasswordField1.getText())) {                
-                VentanaAdministrador admin = new VentanaAdministrador();
+                VentanaAgregarEvento admin = new VentanaAgregarEvento();
                 admin.setVisible(true);
                 this.dispose();
             } else {
