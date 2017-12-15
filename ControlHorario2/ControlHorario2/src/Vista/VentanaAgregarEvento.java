@@ -1,13 +1,10 @@
 package vista;
 
 import Modelo.Controlador;
+import Modelo.Evento;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import Modelo.Evento;
-import java.io.Serializable;
-import java.util.ArrayList;
 
 /**
  *
@@ -114,7 +111,8 @@ public class VentanaAgregarEvento extends JFrame implements ActionListener {
                                                                 .addComponent(jLabel6))
                                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                                                 .addComponent(jCalendar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                .addComponent(jButton1)))
+                                                                .addComponent(jButton1)
+                                                                .addComponent(jButton2)))
                                                 .addGap(30, 30, 30)
                                                 .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                         .addGroup(layout.createSequentialGroup()
@@ -151,6 +149,7 @@ public class VentanaAgregarEvento extends JFrame implements ActionListener {
                                                                 .addComponent(jLabel6)))
                                                 .addGap(18, 18, 18)
                                                 .addComponent(jButton1)
+                                                .addComponent(jButton2)
                                                 .addGap(0, 8, Short.MAX_VALUE))))
         );
 
@@ -159,9 +158,14 @@ public class VentanaAgregarEvento extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == jButton1) {
-            //Entrar  
-
+        if (e.getSource() == jButton1) {         
+            int anio =jYearChooser1.getValue();
+            int mes =jCalendar1.getMonthChooser().getMonth();
+            int dia =jCalendar1.getDayChooser().getDay();
+            Evento event = new Evento(jTextPane1.getText(),anio, mes, dia);
+            Controlador cont = new Controlador();
+            cont.ObtenerLista();
+            cont.AñadirEvento(event);
         }
 
         if (e.getSource() == jButton2) {

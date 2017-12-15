@@ -5,14 +5,24 @@
  */
 package Modelo;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  *
  * @author chavo
  */
-public class ListaDeEventos {
+public class ListaDeEventos implements Serializable {
+
     ArrayList<Evento> ListaDeEventos = new ArrayList<>();
-    
-    
+
+    public ListaDeEventos() {
+    }
+    public int GetTam (){
+        return ListaDeEventos.size();
+    }
+    public void Añadir(Evento e){
+        ListaDeEventos.add(e);
+    }
+
 }

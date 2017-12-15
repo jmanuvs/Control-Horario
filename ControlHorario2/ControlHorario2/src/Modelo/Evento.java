@@ -1,9 +1,10 @@
 package Modelo;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-public class Evento {
+public class Evento implements Serializable{
     private String _nombreEvento;
     private Date fechaEvento;
     
