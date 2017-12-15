@@ -4,7 +4,11 @@ import Modelo.Controlador;
 import Modelo.Evento;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -163,9 +167,17 @@ public class VentanaAgregarEvento extends JFrame implements ActionListener {
             int mes =jCalendar1.getMonthChooser().getMonth();
             int dia =jCalendar1.getDayChooser().getDay();
             Evento event = new Evento(jTextPane1.getText(),anio, mes, dia);
-            Controlador cont = new Controlador();
-            cont.ObtenerLista();
-            cont.AñadirEvento(event);
+            Controlador cont;
+            try {
+                cont = new Controlador();
+                cont.ObtenerLista();
+                cont.AñadirEvento(event);
+                JOptionPane.showMessageDialog(null, "Se ha agregado correctamente", "Agregado", JOptionPane.PLAIN_MESSAGE);
+            } catch (IOException | ClassNotFoundException ex) {
+                Logger.getLogger(VentanaAgregarEvento.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(null, "Ha ocurrido un error al actualizar los archivos: " + ex.getMessage(), "Error en los archivos", JOptionPane.ERROR_MESSAGE);
+            }
+            
         }
 
         if (e.getSource() == jButton2) {

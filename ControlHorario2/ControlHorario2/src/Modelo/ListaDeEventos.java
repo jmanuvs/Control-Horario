@@ -21,8 +21,14 @@ public class ListaDeEventos implements Serializable {
     public int GetTam (){
         return ListaDeEventos.size();
     }
+    public Evento GetEvento (int i){
+        return ListaDeEventos.get(i);
+    }
     public void Añadir(Evento e){
         ListaDeEventos.add(e);
+    }
+    public boolean EstaVacia(){
+        return ListaDeEventos.isEmpty();
     }
 
 }

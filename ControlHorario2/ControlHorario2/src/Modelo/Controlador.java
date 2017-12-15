@@ -17,25 +17,23 @@ public class Controlador {
     ListaDeEventos EventList;
     EscribirYLeer ControlDeArchivo;
 
-    public Controlador() {
+    public Controlador() throws IOException {
         ControlDeArchivo = new EscribirYLeer();
     }
     public boolean ValidarUsuario (String nombre, String Pass){
         return nombre.equals("Admin") && Pass.equals("123");
     }
-    public ListaDeEventos ObtenerLista(){
-        try {
-            EventList = ControlDeArchivo.ObtenerObjetosDeArchivo();
-        } catch (ClassNotFoundException | IOException ex) {
-            Logger.getLogger(Controlador.class.getName()).log(Level.SEVERE, null, ex);
-            EventList =  null;
+    public ListaDeEventos ObtenerLista() throws IOException, ClassNotFoundException{
+        EventList = ControlDeArchivo.leer();
+        if(EventList!=null){
+            System.out.println("Corre");
         }
         return EventList;        
     }
     public void ActualizarLista(){
         try {
-            System.out.println(ControlDeArchivo.EstablecerEscrituraDeArchivo(EventList));
-            EventList = ControlDeArchivo.ObtenerObjetosDeArchivo();
+            System.out.println(ControlDeArchivo.Escribir(EventList));
+            EventList = ControlDeArchivo.leer();
         } catch (ClassNotFoundException | IOException ex) {
             Logger.getLogger(Controlador.class.getName()).log(Level.SEVERE, null, ex);
             EventList =  null;

@@ -2,54 +2,68 @@ package Modelo;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 public class EscribirYLeer {
-    ListaDeEventos EventList;
 
-    public EscribirYLeer() {
+    ListaDeEventos EventList;
+    File Archivo;
+
+    public EscribirYLeer(ListaDeEventos EventList) {
+        this.EventList = EventList;
+
     }
+
     
-    
-    /**
-     * @param L_Eventos
-     * @return 
-     * @throws java.io.IOException
-     */
-    public String EstablecerEscrituraDeArchivo(ListaDeEventos L_Eventos) throws IOException {
-        String msg="Actualizacion realizada";
-        File Archivo = new File("Eventos.obj");
-        FileOutputStream ParaEscribir = new FileOutputStream(Archivo);
-        try (ObjectOutputStream Salida = new ObjectOutputStream(ParaEscribir)) {
-            Salida.writeObject(L_Eventos);
-            /*for (int i = 0; i < L_Eventos.GetTam(); i++) {
-            Salida.writeObject(new Evento());
-            }*/
-        }catch(IOException e){
-            msg=e.getLocalizedMessage();
+
+    public EscribirYLeer() throws IOException {        
+    }
+    public void VerificarArchivo() throws IOException {
+        Archivo = new File("Eventos.txt");
+        if (!Archivo.exists()) {
+            System.out.println("No existe");
+            Archivo.createNewFile();
+            Evento ev = new Evento("Primer evento de prueba", 2015, 7, 29);
+            EventList = new ListaDeEventos();
+            EventList.Añadir(ev);
+            Escribir(EventList);
         }
+    }
+
+    public String Escribir(ListaDeEventos list) throws FileNotFoundException, IOException {
+        String msg = "Actualizacion realizada";
+
+        FileOutputStream ParaEscribir = new FileOutputStream(Archivo);
+        ObjectOutputStream Salida = new ObjectOutputStream(ParaEscribir);
+
+        for (int i = 0; i < list.GetTam(); i++) {
+            Salida.writeObject(list.GetEvento(i));
+        }
+        System.out.println(msg);
         return msg;
     }
 
-    public ListaDeEventos ObtenerObjetosDeArchivo() throws ClassNotFoundException, IOException {
-        ObjectInputStream Escuchador = null;
-        EventList = new ListaDeEventos();
+    public ListaDeEventos leer() throws IOException, ClassNotFoundException {
+        ObjectInputStream ois = null;
+        ListaDeEventos list = new ListaDeEventos();
         try {
-            File Archivo = new File("Eventos.obj");
-            FileInputStream EntradaDeArchivo = new FileInputStream(Archivo);
-            Escuchador = new ObjectInputStream(EntradaDeArchivo);
-            if (true) {
-                EventList = (ListaDeEventos) Escuchador.readObject();
-                System.out.println(EventList.toString());
+
+            FileInputStream fis = new FileInputStream(Archivo);
+            ois = new ObjectInputStream(fis);
+            while (true) {
+                Evento ev = (Evento) ois.readObject();
+                list.Añadir(ev);
+                System.out.println(ev.getNombreEvento());
             }
         } catch (IOException io) {
-            System.out.println("Fin");
+
         } finally {
-            Escuchador.close();
+            ois.close();
         }
-        return EventList;
+        return list;
     }
 }
