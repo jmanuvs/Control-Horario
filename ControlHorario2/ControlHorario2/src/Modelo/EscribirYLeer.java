@@ -18,17 +18,16 @@ public class EscribirYLeer {
 
     }
 
-    
+    public EscribirYLeer() throws IOException {
 
-    public EscribirYLeer() throws IOException {  
-        
     }
+
     public void VerificarArchivo() throws IOException {
         Archivo = new File("Eventos.txt");
         if (!Archivo.exists()) {
             System.out.println("No existe");
             Archivo.createNewFile();
-            Evento ev = new Evento("Primer evento de prueba", 2015, 7, 29,00,00);
+            Evento ev = new Evento("Primer evento de prueba", 2015, 7, 29, 00, 00);
             EventList = new ListaDeEventos();
             EventList.Añadir(ev);
             Escribir(EventList);
@@ -58,7 +57,6 @@ public class EscribirYLeer {
             while (true) {
                 Evento ev = (Evento) ois.readObject();
                 list.Añadir(ev);
-                System.out.println(ev.getNombreEvento());
             }
         } catch (IOException io) {
 

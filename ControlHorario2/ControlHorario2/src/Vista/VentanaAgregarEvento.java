@@ -166,12 +166,14 @@ public class VentanaAgregarEvento extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == jButton1) {         
-            int anio =jYearChooser1.getValue();
+            int anio =jCalendar1.getYearChooser().getYear();
             int mes =jCalendar1.getMonthChooser().getMonth();
             int dia =jCalendar1.getDayChooser().getDay();
             int hora = Integer.parseInt(jSpinner1.getValue().toString());
             int min = Integer.parseInt(jSpinner2.getValue().toString());
+            System.out.println("Mes:" + anio);
             Evento event = new Evento(jTextPane1.getText(),anio, mes, dia,hora,min);
+            System.out.println("Fecha Evento: " + event.getFechaEvento().toString());
             Controlador cont;
             try {
                 cont = new Controlador();

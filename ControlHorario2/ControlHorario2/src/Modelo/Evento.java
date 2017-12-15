@@ -12,7 +12,7 @@ public class Evento implements Serializable{
         
         _nombreEvento=nom;
         
-        GregorianCalendar fecha = new GregorianCalendar(anio,mes+1,dia,hora, min);
+        GregorianCalendar fecha = new GregorianCalendar(anio,mes,dia,hora, min);
         
         fechaEvento = fecha.getTime();
     }
